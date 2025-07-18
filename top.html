@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kishankumar Vasoya - Salesforce Developer</title>
+    
+    <!-- Correct SLDS Stylesheet from a reliable CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@salesforce-ux/design-system@2.21.2/assets/styles/salesforce-lightning-design-system.min.css">
+    
+    <!-- Chart.js for the performance chart -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* --- Simplified styles to avoid conflicts with SLDS --- */
+        body { 
+            background-color: #f3f4f6; 
+            margin: 0;
+        }
+        .app-container {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .slds-global-header__item h1 {
+            color: #e0e3e5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slds-scope app-container">
+        <!-- Header -->
+        <header class="slds-global-header_container">
+            <div class="slds-global-header slds-grid slds-grid_align-spread">
+                <div class="slds-global-header__item">
+                    <div class="slds-global-header__logo">
+                        <span class="slds-assistive-text">Kishankumar's Profile</span>
+                    </div>
+                </div>
+                <div class="slds-global-header__item">
+                   <h1 class="slds-text-heading_large">Kishankumar Vasoya's Profile</h1>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="slds-p-around_medium">
+            <div class="slds-grid slds-gutters slds-wrap">
+
+                <!-- Left Column: Updated with 'medium' breakpoint for better responsiveness -->
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                    <!-- Profile Card -->
+                    <article class="slds-card slds-m-bottom_medium">
+                        <div class="slds-card__body slds-card__body_inner slds-align_absolute-center slds-p-around_large">
+                            <span class="slds-avatar slds-avatar_large slds-m-bottom_medium">
+                                <img alt="Kishankumar Vasoya" src="https://media.licdn.com/dms/image/D4E03AQGg8R9oQJ6Y5w/profile-displayphoto-shrink_400_400/0/1675628400511?e=1726704000&v=beta&t=M8-9gq5K5dY5R5l5l5l5l5l5l5l5l5l5l5l5l5l" title="Kishankumar Vasoya avatar" onerror="this.onerror=null;this.src='https://placehold.co/128x128/0176d3/FFFFFF?text=KV';"/>
+                            </span>
+                            <h2 class="slds-text-heading_large slds-m-bottom_x-small">Kishankumar Vasoya</h2>
+                            <p class="slds-text-body_regular slds-m-bottom_medium">Salesforce Certified Platform Developer</p>
+                            <a href="mailto:kishan.kvasoya@gmail.com" class="slds-button slds-button_brand slds-m-right_x-small">Email</a>
+                            <a href="https://bit.ly/kvasoya" target="_blank" class="slds-button slds-button_brand">LinkedIn</a>
+                        </div>
+                    </article>
+
+                    <!-- Professional Summary Card -->
+                    <article class="slds-card slds-m-bottom_medium">
+                        <div class="slds-card__header slds-grid">
+                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                <div class="slds-media__figure">
+                                    <span class="slds-icon_container slds-icon-standard-user" title="User">
+                                        <svg class="slds-icon slds-icon_small" aria-hidden="true"><use xlink:href="https://cdn.jsdelivr.net/npm/@salesforce-ux/design-system@2.21.2/assets/icons/standard-sprite/svg/symbols.svg#user"></use></svg>
+                                    </span>
+                                </div>
+                                <div class="slds-media__body"><h2 class="slds-card__header-title"><span class="slds-text-heading_small">Professional Summary</span></h2></div>
+                            </header>
+                        </div>
+                        <div class="slds-card__body slds-card__body_inner">
+                            <p>Salesforce-Certified Platform Developer with over 6 years of hands-on experience in designing, developing, and deploying scalable, secure, and high-performance Salesforce solutions.</p>
+                        </div>
+                    </article>
+
+                    <!-- Core Competencies Card -->
+                    <article class="slds-card slds-m-bottom_medium">
+                         <div class="slds-card__header slds-grid">
+                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                <div class="slds-media__figure">
+                                    <span class="slds-icon_container slds-icon-standard-skill" title="Skill">
+                                        <svg class="slds-icon slds-icon_small" aria-hidden="true"><use xlink:href="https://cdn.jsdelivr.net/npm/@salesforce-ux/design-system@2.21.2/assets/icons/standard-sprite/svg/symbols.svg#skill"></use></svg>
+                                    </span>
+                                </div>
+                                <div class="slds-media__body"><h2 class="slds-card__header-title"><span class="slds-text-heading_small">Core Competencies</span></h2></div>
+                            </header>
+                        </div>
+                        <div class="slds-card__body slds-card__body_inner">
+                            <span class="slds-badge slds-m-around_xx-small">LWC & Aura</span>
+                            <span class="slds-badge slds-m-around_xx-small">Apex</span>
+                            <span class="slds-badge slds-m-around_xx-small">API Integration</span>
+                            <span class="slds-badge slds-m-around_xx-small">Data Modeling</span>
+                            <span class="slds-badge slds-m-around_xx-small">AppExchange</span>
+                            <span class="slds-badge slds-m-around_xx-small">Flows</span>
+                            <span class="slds-badge slds-m-around_xx-small">CI/CD</span>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Right Column: Updated with 'medium' breakpoint for better responsiveness -->
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                    <!-- Tabs -->
+                    <div class="slds-tabs_default slds-m-bottom_medium">
+                        <ul class="slds-tabs_default__nav" role="tablist">
+                            <li class="slds-tabs_default__item slds-is-active" title="Experience" role="presentation" data-tab="experience">
+                                <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab">Professional Experience</a>
+                            </li>
+                            <li class="slds-tabs_default__item" title="Projects" role="presentation" data-tab="projects">
+                                <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab">Key Projects</a>
+                            </li>
+                        </ul>
+                        <div id="tab-content-experience" class="slds-tabs_default__content slds-show" role="tabpanel">
+                            <div class="slds-box slds-box_x-small slds-m-top_small">
+                                <h3 class="slds-text-heading_medium">Salesforce Developer</h3>
+                                <p class="slds-text-body_regular slds-m-bottom_x-small">Clearing (formerly Everpay), London | May 2024 - Present</p>
+                                <ul class="slds-list_dotted"><li>Developed high-availability solutions for multi-currency transactions and KYC.</li></ul>
+                            </div>
+                            <div class="slds-box slds-box_x-small slds-m-top_small">
+                                <h3 class="slds-text-heading_medium">Salesforce Developer (Part-Time)</h3>
+                                <p class="slds-text-body_regular slds-m-bottom_x-small">J-Cloud Consulting | Sept 2022 - Apr 2024</p>
+                                <ul class="slds-list_dotted"><li>Refactored legacy Apex and mitigated governor limits.</li></ul>
+                            </div>
+                        </div>
+                        <div id="tab-content-projects" class="slds-tabs_default__content slds-hide" role="tabpanel">
+                            <div class="slds-box slds-box_x-small slds-m-top_small"><h3 class="slds-text-heading_medium">The Field - AppExchange Product</h3><p>Designed a Google Maps-based Canvassing solution for sales field reps.</p></div>
+                            <div class="slds-box slds-box_x-small slds-m-top_small"><h3 class="slds-text-heading_medium">Elongate Crypto Wallet</h3><p>Built a Salesforce-native crypto wallet app using LWC and Visualforce.</p></div>
+                        </div>
+                    </div>
+
+                    <!-- Chart Card -->
+                    <article class="slds-card">
+                        <div class="slds-card__header slds-grid">
+                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                <div class="slds-media__figure">
+                                    <span class="slds-icon_container slds-icon-standard-opportunity" title="Opportunity">
+                                        <svg class="slds-icon slds-icon_small" aria-hidden="true"><use xlink:href="https://cdn.jsdelivr.net/npm/@salesforce-ux/design-system@2.21.2/assets/icons/standard-sprite/svg/symbols.svg#opportunity"></use></svg>
+                                    </span>
+                                </div>
+                                <div class="slds-media__body"><h2 class="slds-card__header-title"><span class="slds-text-heading_small">Quarterly Performance (Demo)</span></h2></div>
+                            </header>
+                        </div>
+                        <div class="slds-card__body slds-card__body_inner">
+                            <div style="height: 250px;"><canvas id="performanceChart"></canvas></div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Tab switching logic
+            const tabContainer = document.querySelector('.slds-tabs_default');
+            tabContainer.addEventListener('click', function(event) {
+                const clickedTab = event.target.closest('.slds-tabs_default__item');
+                if (!clickedTab) return;
+
+                // Deactivate all tabs and hide content
+                const allTabs = tabContainer.querySelectorAll('.slds-tabs_default__item');
+                allTabs.forEach(tab => {
+                    tab.classList.remove('slds-is-active');
+                    const contentId = `tab-content-${tab.dataset.tab}`;
+                    document.getElementById(contentId).classList.replace('slds-show', 'slds-hide');
+                });
+
+                // Activate clicked tab and show its content
+                clickedTab.classList.add('slds-is-active');
+                const activeContentId = `tab-content-${clickedTab.dataset.tab}`;
+                document.getElementById(activeContentId).classList.replace('slds-hide', 'slds-show');
+            });
+
+            // Chart.js logic
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                    datasets: [{
+                        label: 'Features Delivered',
+                        data: [8, 12, 10, 15],
+                        backgroundColor: 'rgba(0, 112, 210, 0.1)',
+                        borderColor: 'rgba(0, 112, 210, 1)',
+                        borderWidth: 2,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true } },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
