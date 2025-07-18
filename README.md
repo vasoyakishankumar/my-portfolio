@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with React + Tailwind
+
+See it in action [My Portfolio](https://vasoyakishankumar.github.io/my-portfolio-app).
 
 ## Available Scripts
 
