@@ -1,6 +1,6 @@
 This project was bootstrapped with React + Tailwind
 
-See it in action [My Portfolio](https://vasoyakishankumar.github.io/my-portfolio-app).
+See it in action [My Portfolio](https://vasoyakishankumar.github.io/my-portfolio).
 
 ## Available Scripts
 
