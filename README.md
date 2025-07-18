@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+This project was bootstrapped with React + Tailwind
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react).
+See it in action [My Portfolio](https://vasoyakishankumar.github.io/my-portfolio).
 
 ## Available Scripts
 
