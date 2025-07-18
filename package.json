@@ -1,6 +1,6 @@
 {
-  "name": "my-portfolio-app",
-  "homepage": "https://vasoyakishankumar.github.io/my-portfolio-app",
+  "name": "my-portfolio",
+  "homepage": "https://vasoyakishankumar.github.io/my-portfolio",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
