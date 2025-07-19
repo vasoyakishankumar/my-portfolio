@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import profilePic from './profile_pic.jpg';
 
-// --- SVG Icons for SLDS feel ---
 const CodeIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>;
 const ApiIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a10 10 0 1 0 10 10H12V2z"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>;
 const AutomationIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20v-6M12 8V2M5 12H2M22 12h-3M18.36 18.36l-2.12-2.12M5.64 5.64l2.12 2.12M18.36 5.64l-2.12 2.12M5.64 18.36l2.12-2.12"></path><circle cx="12" cy="12" r="2"></circle></svg>;
@@ -10,7 +9,7 @@ const RocketIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" heig
 const DataIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>;
 
 
-// --- Data extracted from your resume ---
+
 const portfolioData = {
   name: "Kishankumar Vasoya",
   title: "Salesforce Certified Platform Developer",
@@ -75,7 +74,6 @@ const portfolioData = {
 
 // --- Helper Components ---
 
-// Custom hook to detect when an element is in view
 const useInView = (options) => {
     const ref = useRef(null);
     const [isInView, setIsInView] = useState(false);
