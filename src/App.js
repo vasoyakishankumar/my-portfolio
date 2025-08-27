@@ -28,9 +28,15 @@ const portfolioData = {
   ],
   experience: [
     {
+      role: "Solution Engineer - Salesforce",
+      company: "AXA UK",
+      period: "Aug 2025 - Present",
+      description: ""
+    },
+    {
       role: "Salesforce Developer",
       company: "Clearing (formerly Everpay)",
-      period: "May 2024 - Present",
+      period: "May 2024 - July 2025",
       description: "Architected and deployed high-availability FinTech solutions for multi-currency transactions, KYC, and financial reporting. Built a metadata-driven Transaction Monitoring system with real-time alerts and integrated payment provider APIs."
     },
     {
