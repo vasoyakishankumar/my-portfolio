@@ -1,38 +1,150 @@
-.App {
-  text-align: center;
+@font-face {
+    font-family: 'ITC Avant Garde';
+    src: url('./ITCAvantGardeStd-Md.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+@font-face {
+    font-family: 'ITC Avant Garde';
+    src: url('./ITCAvantGardeStd-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+    background-color: transparent;
+    font-family: "ITC Avant Garde", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Floating Animations */
+@keyframes floatUp {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
 }
 
-.App-link {
-  color: #61dafb;
+@keyframes floatDown {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(20px); }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.sf-float-up {
+    animation: floatUp 6s ease-in-out infinite;
+}
+
+.sf-float-down {
+    animation: floatDown 8s ease-in-out infinite;
+}
+
+/* Card Styling to match Salesforce.com */
+.sf-marketing-card {
+    background-color: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e5e5e5;
+    cursor: pointer;
+}
+
+.sf-marketing-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.sf-marketing-card-header {
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+    background-color: #e0f2fe; /* fallback */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Different gradient backgrounds for headers */
+.bg-gradient-1 { background: linear-gradient(135deg, #dbeafe, #93c5fd); }
+.bg-gradient-2 { background: linear-gradient(135deg, #e0e7ff, #a5b4fc); }
+.bg-gradient-3 { background: linear-gradient(135deg, #fce7f3, #f9a8d4); }
+.bg-gradient-4 { background: linear-gradient(135deg, #ffedd5, #fdba74); }
+
+.sf-marketing-card-header img {
+    max-height: 80%;
+    max-width: 80%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.sf-marketing-card:hover .sf-marketing-card-header img {
+    transform: scale(1.05);
+}
+
+.sf-marketing-card-body {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.sf-marketing-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background-color: #f0f8ff;
+    color: #0176d3;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    align-self: flex-start;
+}
+
+.sf-marketing-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #032d60;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+
+.sf-marketing-description {
+    font-size: 0.875rem;
+    color: #444444;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.sf-marketing-link {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #0176d3;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom-color 0.2s ease;
+    align-self: flex-start;
+}
+
+.sf-marketing-card:hover .sf-marketing-link {
+    border-bottom-color: #0176d3;
+}
+
+/* Background floating area */
+.sf-floating-bg {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.sf-floating-img {
+    position: absolute;
+    opacity: 0.4;
+    z-index: -1;
 }
