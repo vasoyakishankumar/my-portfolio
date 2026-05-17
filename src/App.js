@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import profilePic from './profile_pic.jpg';
 import astroImg from './teddybot.png';
 import einsteinImg from './einstein.png';
@@ -107,6 +107,21 @@ const AstroEinstein3D = () => {
     const einsteinRef = useRef();
     const classicRef = useRef();
 
+    // Detect mobile viewport for responsive 3D positioning
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth <= 768);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    // Mobile: smaller meshes, pulled into the visible viewport
+    // Desktop: original positions preserved exactly
+    const meshSize = isMobile ? 3 : 4.5;
+    const astroX = isMobile ? -1.5 : -5;
+    const einsteinX = isMobile ? 1.5 : 5;
+    const classicX = isMobile ? 0 : -5;
+
     // Calculate exact aspect ratios from the loaded images
     const getArgs = (tex, width) => [width, width * (tex.image.height / tex.image.width)];
 
@@ -130,21 +145,21 @@ const AstroEinstein3D = () => {
     return (
         <>
             <Float speed={2} rotationIntensity={0.2} floatIntensity={0.5}>
-                <mesh ref={astroRef} position={[-5, 3, -5]}>
-                    <planeGeometry args={getArgs(astroTex, 4.5)} />
-                    <meshBasicMaterial map={astroTex} transparent={true} opacity={0.6} depthWrite={false} side={THREE.DoubleSide} />
+                <mesh ref={astroRef} position={[astroX, 3, -5]}>
+                    <planeGeometry args={getArgs(astroTex, meshSize)} />
+                    <meshBasicMaterial map={astroTex} transparent={true} opacity={isMobile ? 0.35 : 0.6} depthWrite={false} side={THREE.DoubleSide} />
                 </mesh>
             </Float>
             <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
-                <mesh ref={einsteinRef} position={[5, -3, -3]}>
-                    <planeGeometry args={getArgs(einsteinTex, 4.5)} />
-                    <meshBasicMaterial map={einsteinTex} transparent={true} opacity={0.6} depthWrite={false} side={THREE.DoubleSide} />
+                <mesh ref={einsteinRef} position={[einsteinX, -3, -3]}>
+                    <planeGeometry args={getArgs(einsteinTex, meshSize)} />
+                    <meshBasicMaterial map={einsteinTex} transparent={true} opacity={isMobile ? 0.35 : 0.6} depthWrite={false} side={THREE.DoubleSide} />
                 </mesh>
             </Float>
             <Float speed={1.8} rotationIntensity={0.3} floatIntensity={0.5}>
-                <mesh ref={classicRef} position={[-5, -16, -4]}>
-                    <planeGeometry args={getArgs(classicTex, 4.5)} />
-                    <meshBasicMaterial map={classicTex} transparent={true} opacity={0.6} depthWrite={false} side={THREE.DoubleSide} />
+                <mesh ref={classicRef} position={[classicX, -16, -4]}>
+                    <planeGeometry args={getArgs(classicTex, meshSize)} />
+                    <meshBasicMaterial map={classicTex} transparent={true} opacity={isMobile ? 0.35 : 0.6} depthWrite={false} side={THREE.DoubleSide} />
                 </mesh>
             </Float>
         </>
@@ -178,23 +193,22 @@ const Header = () => {
             <img
                 src={portfolioData.profileImage}
                 alt={portfolioData.name}
-                className="slds-avatar slds-avatar_circle"
-                style={{ width: '180px', height: '180px', border: '5px solid white', boxShadow: '0 20px 40px rgba(0,0,0,0.1)', marginBottom: '2rem' }}
+                className="slds-avatar slds-avatar_circle profile-image"
             />
-            <h1 className="slds-text-heading_large" style={{ fontSize: '3.5rem', fontWeight: 800, color: '#032d60', marginBottom: '1rem', letterSpacing: '-1px' }}>
+            <h1 className="slds-text-heading_large header-title">
                 {portfolioData.name}
             </h1>
-            <p className="slds-text-heading_medium slds-m-bottom_medium" style={{ color: '#0176d3', fontWeight: 600, fontSize: '1.5rem' }}>
+            <p className="slds-text-heading_medium slds-m-bottom_medium header-subtitle">
                 {portfolioData.title}
             </p>
-            <p className="slds-text-body_regular slds-m-bottom_large" style={{ maxWidth: '800px', margin: '0 auto 3rem auto', fontSize: '1.2rem', color: '#555', lineHeight: 1.6 }}>
+            <p className="slds-text-body_regular slds-m-bottom_large header-summary">
                 {portfolioData.summary}
             </p>
-            <div>
-                <a href={`mailto:${portfolioData.email}`} className="slds-button slds-button_brand slds-p-horizontal_x-large slds-p-vertical_small" style={{ borderRadius: '3rem', fontSize: '1.1rem', boxShadow: '0 10px 20px rgba(1, 118, 211, 0.3)' }}>
+            <div className="contact-buttons-container">
+                <a href={`mailto:${portfolioData.email}`} className="slds-button slds-button_brand slds-p-horizontal_x-large slds-p-vertical_small btn-contact">
                     Contact Me
                 </a>
-                <a href={portfolioData.linkedin} target="_blank" rel="noopener noreferrer" className="slds-button slds-button_outline-brand slds-m-left_medium slds-p-horizontal_x-large slds-p-vertical_small" style={{ borderRadius: '3rem', fontSize: '1.1rem' }}>
+                <a href={portfolioData.linkedin} target="_blank" rel="noopener noreferrer" className="slds-button slds-button_outline-brand slds-p-horizontal_x-large slds-p-vertical_small btn-linkedin">
                     LinkedIn
                 </a>
             </div>
@@ -205,11 +219,10 @@ const Header = () => {
 const SkillsSection = () => {
     // Dynamic staggered modern layout instead of a flat grid
     return (
-        <div className="slds-p-around_xx-large sf-portfolio-container" style={{ marginTop: '5rem' }}>
+        <div className="slds-p-around_xx-large sf-portfolio-container skills-container">
             <motion.h2
                 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
-                className="slds-text-heading_large slds-text-align_center slds-m-bottom_xx-large"
-                style={{ fontWeight: 800, color: '#032d60', fontSize: '2.5rem' }}
+                className="slds-text-heading_large slds-text-align_center slds-m-bottom_xx-large section-title"
             >
                 Core Capabilities
             </motion.h2>
@@ -224,10 +237,10 @@ const SkillsSection = () => {
                         className="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3 slds-p-around_medium"
                         style={{ display: 'flex', flexDirection: 'column', height: 'auto' }}
                     >
-                        <div className="sf-marketing-card" style={{ flex: 1, padding: '2rem', border: 'none', background: 'rgba(255,255,255,0.8)', backdropFilter: 'blur(10px)' }}>
-                            <div style={{ transform: 'scale(1.5)', transformOrigin: 'left', marginBottom: '1.5rem' }}>{skill.icon}</div>
-                            <h3 className="sf-marketing-title" style={{ fontSize: '1.5rem' }}>{skill.name}</h3>
-                            <p className="sf-marketing-description" style={{ fontSize: '1rem' }}>{skill.description}</p>
+                        <div className="sf-marketing-card skill-card-inner">
+                            <div className="skill-icon-container">{skill.icon}</div>
+                            <h3 className="sf-marketing-title skill-title">{skill.name}</h3>
+                            <p className="sf-marketing-description skill-desc">{skill.description}</p>
                         </div>
                     </motion.div>
                 ))}
@@ -239,22 +252,21 @@ const SkillsSection = () => {
 const ExperienceTimeline = () => {
     // A completely custom timeline replacing the standard cards
     return (
-        <div className="slds-p-around_xx-large sf-portfolio-container" style={{ marginTop: '5rem' }}>
+        <div className="slds-p-around_xx-large sf-portfolio-container timeline-container">
             <motion.h2
                 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
-                className="slds-text-heading_large slds-text-align_center slds-m-bottom_xx-large"
-                style={{ fontWeight: 800, color: '#032d60', fontSize: '2.5rem' }}
+                className="slds-text-heading_large slds-text-align_center slds-m-bottom_xx-large section-title"
             >
                 Career Journey
             </motion.h2>
-            <div style={{ position: 'relative', maxWidth: '800px', margin: '0 auto' }}>
-                <div style={{ position: 'absolute', left: '24px', top: '0', bottom: '0', width: '4px', background: '#e0e7ee', borderRadius: '2px' }}></div>
+            <div className="timeline-wrapper">
+                <div className="timeline-line"></div>
                 <ul className="slds-timeline">
                     {portfolioData.experience.map((job, index) => (
                         <motion.li
                             initial={{ opacity: 0, x: -50 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true, margin: "-100px" }}
+                            viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.6, type: "spring", bounce: 0.4 }}
                             key={job.company}
                             className="slds-timeline__item slds-m-bottom_large"
@@ -262,19 +274,19 @@ const ExperienceTimeline = () => {
                         >
                             <div className="slds-media">
                                 <div className="slds-media__figure">
-                                    <div className="slds-icon_container slds-icon-standard-task slds-timeline__icon" style={{ borderRadius: '50%', background: '#0176d3', color: 'white', padding: '12px', zIndex: 2, position: 'relative', boxShadow: '0 5px 15px rgba(1, 118, 211, 0.4)' }}>
+                                    <div className="slds-icon_container slds-icon-standard-task slds-timeline__icon timeline-icon-container">
                                         <RocketIcon />
                                     </div>
                                 </div>
-                                <div className="slds-media__body slds-card slds-p-around_large" style={{ borderRadius: '1rem', boxShadow: '0 10px 30px rgba(0,0,0,0.05)', border: 'none', background: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(10px)' }}>
+                                <div className="slds-media__body slds-card slds-p-around_large timeline-card">
                                     <div className="slds-grid slds-grid_align-spread slds-timeline__details">
-                                        <h3 className="slds-text-heading_medium" style={{ fontWeight: 800, color: '#032d60' }}>{job.role}</h3>
-                                        <span className="slds-badge" style={{ backgroundColor: '#e0f2fe', color: '#0176d3', fontWeight: 700 }}>{job.period}</span>
+                                        <h3 className="slds-text-heading_medium timeline-role">{job.role}</h3>
+                                        <span className="slds-badge timeline-period-badge">{job.period}</span>
                                     </div>
-                                    <p className="slds-m-top_x-small" style={{ fontSize: '1.2rem', fontWeight: 600, color: '#444' }}>{job.company}</p>
-                                    <p className="slds-m-top_small" style={{ lineHeight: 1.7, color: '#555' }}>{job.description || 'Architecting Salesforce solutions.'}</p>
+                                    <p className="slds-m-top_x-small timeline-company">{job.company}</p>
+                                    <p className="slds-m-top_small timeline-desc">{job.description || 'Architecting Salesforce solutions.'}</p>
                                     {job.bannerUrl && (
-                                        <img src={job.bannerUrl} alt={`${job.company} banner`} className="slds-m-top_medium" style={{ borderRadius: '0.5rem', maxHeight: '180px', width: '100%', objectFit: 'cover' }} />
+                                        <img src={job.bannerUrl} alt={`${job.company} banner`} className="slds-m-top_medium timeline-banner" />
                                     )}
                                 </div>
                             </div>
@@ -289,11 +301,10 @@ const ExperienceTimeline = () => {
 const EditorialProjects = () => {
     // Asymmetrical layout replacing the uniform card grid
     return (
-        <div className="slds-p-around_xx-large sf-portfolio-container" style={{ marginTop: '5rem' }}>
+        <div className="slds-p-around_xx-large sf-portfolio-container projects-container">
             <motion.h2
                 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
-                className="slds-text-heading_large slds-text-align_center slds-m-bottom_xx-large"
-                style={{ fontWeight: 800, color: '#032d60', fontSize: '2.5rem' }}
+                className="slds-text-heading_large slds-text-align_center slds-m-bottom_xx-large section-title"
             >
                 Key Implementations
             </motion.h2>
@@ -304,21 +315,21 @@ const EditorialProjects = () => {
                         <motion.div
                             initial={{ opacity: 0, y: 50 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-100px" }}
+                            viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.7 }}
                             key={project.title}
                             className="slds-col slds-size_1-of-1 slds-m-bottom_xx-large"
                         >
-                            <div className="slds-grid slds-wrap" style={{ alignItems: 'stretch', flexDirection: isEven ? 'row' : 'row-reverse', background: 'rgba(255,255,255,0.7)', borderRadius: '2rem', backdropFilter: 'blur(10px)', boxShadow: '0 10px 40px rgba(0,0,0,0.03)', overflow: 'hidden' }}>
-                                <div className="slds-col slds-size_1-of-1 slds-large-size_1-of-2" style={{ padding: '0', display: 'flex' }}>
-                                    <div style={{ background: isEven ? 'linear-gradient(135deg, #e0f2fe, #bae6fd)' : 'linear-gradient(135deg, #fce7f3, #f9a8d4)', minHeight: '400px', height: '100%', width: '100%', position: 'relative', overflow: 'hidden' }}>
-                                        <img src={isEven ? astroImg : einsteinImg} style={{ position: 'absolute', bottom: '-20px', right: isEven ? '-40px' : 'auto', left: isEven ? 'auto' : '-40px', height: '110%', width: 'auto', opacity: 0.9 }} alt="Project Deco" />
+                            <div className={`slds-grid slds-wrap project-card ${isEven ? 'project-card-even' : 'project-card-odd'}`}>
+                                <div className="slds-col slds-size_1-of-1 slds-large-size_1-of-2 project-image-wrapper">
+                                    <div className={`project-image-bg ${isEven ? 'even' : 'odd'}`}>
+                                        <img src={isEven ? astroImg : einsteinImg} className={`project-decoration-img ${isEven ? 'even' : 'odd'}`} alt="Project Deco" />
                                     </div>
                                 </div>
-                                <div className="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-p-around_xx-large" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start' }}>
-                                    <span className="slds-badge slds-m-bottom_medium" style={{ backgroundColor: '#f4f6f9', color: '#0176d3', fontWeight: 700 }}>Project</span>
-                                    <h3 className="slds-text-heading_large slds-m-bottom_medium" style={{ fontWeight: 800, color: '#032d60', fontSize: '2rem', lineHeight: 1.2 }}>{project.title}</h3>
-                                    <p className="slds-text-body_regular" style={{ fontSize: '1.2rem', lineHeight: 1.8, color: '#555' }}>{project.description}</p>
+                                <div className="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-p-around_xx-large project-content-wrapper">
+                                    <span className="slds-badge slds-m-bottom_medium project-badge">Project</span>
+                                    <h3 className="slds-text-heading_large slds-m-bottom_medium project-title">{project.title}</h3>
+                                    <p className="slds-text-body_regular project-desc">{project.description}</p>
                                 </div>
                             </div>
                         </motion.div>
@@ -335,18 +346,17 @@ const CampfireClosing = () => (
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.8 }}
-        className="slds-p-around_xx-large slds-text-align_center sf-portfolio-container"
-        style={{ marginTop: '2rem' }}
+        className="slds-p-around_xx-large slds-text-align_center sf-portfolio-container campfire-container"
     >
-        <img src={picnicImg} alt="Trailblazer Community Campfire" style={{ width: '100%', maxWidth: '800px', margin: '0 auto', display: 'block' }} />
+        <img src={picnicImg} alt="Trailblazer Community Campfire" className="campfire-img" />
     </motion.div>
 );
 
 const Footer = () => (
-    <footer className="slds-p-around_xx-large slds-text-align_center" style={{ backgroundColor: 'rgba(255,255,255,0.9)', borderTop: '1px solid rgba(0,0,0,0.05)', marginTop: '4rem', backdropFilter: 'blur(10px)' }}>
-        <h3 className="slds-text-heading_medium" style={{ fontWeight: 800, color: '#032d60', marginBottom: '1rem', fontSize: '2rem' }}>Let's Connect</h3>
-        <p className="slds-text-body_regular slds-m-bottom_large" style={{ color: '#555', fontSize: '1.2rem' }}>Feel free to reach out for collaborations or just a friendly chat.</p>
-        <p className="slds-text-body_small" style={{ color: '#888' }}>&copy; {new Date().getFullYear()} {portfolioData.name}. Built with Salesforce Lightning Design System, React Three Fiber, & Framer Motion.</p>
+    <footer className="slds-p-around_xx-large slds-text-align_center footer-container">
+        <h3 className="slds-text-heading_medium footer-title">Let's Connect</h3>
+        <p className="slds-text-body_regular slds-m-bottom_large footer-desc">Feel free to reach out for collaborations or just a friendly chat.</p>
+        <p className="slds-text-body_small footer-copyright">&copy; {new Date().getFullYear()} {portfolioData.name}. Built with Salesforce Lightning Design System, React Three Fiber, & Framer Motion.</p>
     </footer>
 );
 
